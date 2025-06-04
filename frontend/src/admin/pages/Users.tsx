@@ -147,7 +147,12 @@ const Users = () => {
     if (!userToDelete) return;
 
     try {
-      await del(`/admin/users/${userToDelete.id}`);
+      const response = await fetch(`https://127.0.0.1:8000/api/admin/users/${userToDelete.id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete user');
+      }
       fetchUsers();
     } catch (error) {
       console.error('Error deleting user:', error);
