@@ -20,7 +20,7 @@ const Accueil: React.FC = () => {
             <img 
               src={Image1} 
               alt="Background" 
-              className="w-full h-full object-cover object-center transform scale-105"
+              className="w-full h-full object-cover object-center"
               style={{ 
                 filter: 'brightness(0.4)',
                 minHeight: '100vh',
@@ -34,22 +34,18 @@ const Accueil: React.FC = () => {
           {/* Content Container */}
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
             <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-center sm:text-left" aria-label='Bienvenue chez Swiss Padel Stars'>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-center sm:text-left">
                 L'expertise du padel, <br className="hidden sm:block"/> au service de vos projets
               </h1>
-              <p className="text-xl sm:text-2xl mb-8 text-center sm:text-left py-6 sm:py-10">
+              <p className="text-xl sm:text-2xl mb-8 text-center sm:text-left">
                 Votre partenaire de référence pour vos projets liés au monde du padel.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
-                <Link to="/professionnel">
-                  <button className="bg-yellow-400 text-black py-3 px-6 rounded-full font-medium transition hover:bg-yellow-300 w-full sm:w-auto" aria-label='Je suis un professionnel'>
-                    JE SUIS UN PROFESSIONNEL
-                  </button>
+                <Link to="/professionnel" className="bg-yellow-400 text-black py-3 px-6 rounded-full font-medium transition hover:bg-yellow-300 w-full sm:w-auto text-center">
+                  JE SUIS UN PROFESSIONNEL
                 </Link>
-                <Link to="/particulier">
-                  <button className="bg-transparent border border-white py-3 px-6 rounded-full font-medium transition hover:bg-white hover:text-black w-full sm:w-auto" aria-label='Je suis un particulier'>
-                    JE SUIS UN PARTICULIER
-                  </button>
+                <Link to="/particulier" className="bg-transparent border border-white py-3 px-6 rounded-full font-medium transition hover:bg-white hover:text-black w-full sm:w-auto text-center">
+                  JE SUIS UN PARTICULIER
                 </Link>
               </div>
             </div>
