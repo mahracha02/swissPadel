@@ -4,6 +4,7 @@ import { Image, Eye, Rocket, Target, HandshakeIcon } from 'lucide-react';
 import PadelSolutions from "../assets/images/padelSolutions.jpg"
 import Slider from 'react-slick';
 import PartnersSection from '../layout/PartnersSection';
+import { Link } from 'react-router-dom';
 
 interface Sponsor {
   id: number;
@@ -207,9 +208,11 @@ const Sponsors: React.FC = () => {
               <button className="bg-[#c5ff32] text-black px-8 py-3 rounded-full font-bold hover:bg-opacity-90 transition-colors">
                 En savoir plus
               </button>
-              <button className="border-2 border-withe text-white px-8 py-3 rounded-full font-bold hover:bg-[#c5ff32] hover:text-black transition-colors">
-                Nous contacter
-              </button>
+              <Link to="/contact" className="w-full sm:w-auto">
+                <button className="border-2 border-withe text-white px-8 py-3 rounded-full font-bold hover:bg-[#c5ff32] hover:text-black transition-colors">
+                  Nous contacter
+                </button>
+              </Link>
             </div>
           </div>
         </section>

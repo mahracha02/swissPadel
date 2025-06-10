@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../layout/Header';
-import { CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import Logo from '../assets/images/logo2.png';
 import contactImg1 from '../assets/images/contactImage1.png';
-import avatar1 from '../assets/images/avatar1.png';
-import avatar2 from '../assets/images/avatar2.png';
-import avatar3 from '../assets/images/avatar3.png';
 import PartnersSection from '../layout/PartnersSection';
+import { Link } from 'react-router-dom';
+import FeedbackSlider from '../layout/FeedbackSlider';
 
 interface Service {
   id: number;
@@ -15,29 +14,9 @@ interface Service {
   image: string;
 }
 
-const feedbacks = [
-  {
-    name: 'Benoit .L',
-    text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-    img: avatar1,
-  },
-  {
-    name: 'Elisa .C',
-    text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-    img: avatar2,
-  },
-  {
-    name: 'Camille .L',
-    text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-    img: avatar3,
-  },
-];
-
 const Professionnel: React.FC = () => {
-  const [start, setStart] = React.useState(0);
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
-  const visible = 3;
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -54,18 +33,6 @@ const Professionnel: React.FC = () => {
 
     fetchServices();
   }, []);
-
-  const prev = () => setStart((s) => (s - 1 + feedbacks.length) % feedbacks.length);
-  const next = () => setStart((s) => (s + 1) % feedbacks.length);
-
-  // For infinite loop, show 3 feedbacks in a row, wrapping around
-  const getFeedbacks = () => {
-    const arr = [];
-    for (let i = 0; i < visible; i++) {
-      arr.push(feedbacks[(start + i) % feedbacks.length]);
-    }
-    return arr;
-  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -125,28 +92,28 @@ const Professionnel: React.FC = () => {
         {/* Why Choose Us Section */}
         <section className="py-12 sm:py-16 md:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-20">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-12 md:gap-20">
               {/* Left side - Text content */}
               <div className="w-full md:w-1/2">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8">
                   Pourquoi choisir Swiss Padel Stars ?
                 </h2>
-                <ul className="space-y-6">
-                  <li className="flex items-start gap-4">
-                    <CheckCircle className="w-6 h-6 text-[#c5ff32] flex-shrink-0 mt-1" />
-                    <span className="text-lg sm:text-xl text-gray-700">
+                <ul className="space-y-4 sm:space-y-6">
+                  <li className="flex items-start gap-3 sm:gap-4">
+                    <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#c5ff32] flex-shrink-0 mt-1" />
+                    <span className="text-base sm:text-lg md:text-xl text-gray-700">
                       Une expertise reconnue en Suisse
                     </span>
                   </li>
-                  <li className="flex items-start gap-4">
-                    <CheckCircle className="w-6 h-6 text-[#c5ff32] flex-shrink-0 mt-1" />
-                    <span className="text-lg sm:text-xl text-gray-700">
+                  <li className="flex items-start gap-3 sm:gap-4">
+                    <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#c5ff32] flex-shrink-0 mt-1" />
+                    <span className="text-base sm:text-lg md:text-xl text-gray-700">
                       Des solutions clé-en-main adaptées à vos besoins
                     </span>
                   </li>
-                  <li className="flex items-start gap-4">
-                    <CheckCircle className="w-6 h-6 text-[#c5ff32] flex-shrink-0 mt-1" />
-                    <span className="text-lg sm:text-xl text-gray-700">
+                  <li className="flex items-start gap-3 sm:gap-4">
+                    <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#c5ff32] flex-shrink-0 mt-1" />
+                    <span className="text-base sm:text-lg md:text-xl text-gray-700">
                       Un réseau solide pour maximiser l'impact de vos projets
                     </span>
                   </li>
@@ -155,11 +122,11 @@ const Professionnel: React.FC = () => {
 
               {/* Right side - Image */}
               <div className="w-full md:w-1/2 flex justify-center">
-                <div className="h-[300px] sm:h-[400px] flex items-center justify-center">
+                <div className="relative w-full aspect-square max-w-[200px] sm:max-w-[300px] md:max-w-[400px]">
                   <img 
                     src={Logo} 
                     alt="Swiss Padel Stars" 
-                    className="w-120 h-120 object-contain rounded-full bg-[#c5ff32] mt-4 border-2 border-black shadow-lg" 
+                    className="w-full h-full object-contain rounded-full bg-[#c5ff32] border-2 border-black shadow-lg" 
                   />
                 </div>
               </div>
@@ -168,54 +135,7 @@ const Professionnel: React.FC = () => {
         </section>
 
         {/* Feedback Slider */}
-        <section className="py-12 sm:py-16 md:py-20 bg-gray-100">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center mb-6">
-              Retours clients
-            </h2>
-            <p className="text-xl sm:text-2xl md:text-3xl text-center mb-12 text-neutral-600">
-              Votre satisfaction, notre priorité.
-            </p>
-            <div className="flex items-center justify-center gap-4 max-w-7xl mx-auto">
-              {/* Left arrow */}
-              <button
-                onClick={prev}
-                className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-black text-white hover:bg-neutral-800 transition"
-                aria-label="Précédent"
-              >
-                <ChevronLeft size={24} className="sm:w-8 sm:h-8" />
-              </button>
-              {/* Feedback cards */}
-              <div className="flex gap-4 sm:gap-8 w-full justify-center">
-                {getFeedbacks().map((fb, idx) => (
-                  <div
-                    key={idx}
-                    className="relative bg-white border border-neutral-400 rounded-2xl px-4 sm:px-8 pt-12 sm:pt-16 pb-4 sm:pb-8 w-[280px] sm:w-[340px] flex-shrink-0 flex flex-col items-center"
-                  >
-                    {/* Avatar */}
-                    <div className="absolute -top-8 sm:-top-12 left-1/2 -translate-x-1/2">
-                      <img
-                        src={fb.img}
-                        alt={fb.name}
-                        className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border-4 border-black shadow-lg object-cover"
-                      />
-                    </div>
-                    <div className="mt-4 text-xl sm:text-2xl font-bold text-neutral-900">{fb.name}</div>
-                    <div className="mt-2 text-sm sm:text-base text-neutral-800 text-center">{fb.text}</div>
-                  </div>
-                ))}
-              </div>
-              {/* Right arrow */}
-              <button
-                onClick={next}
-                className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-black text-white hover:bg-neutral-800 transition"
-                aria-label="Suivant"
-              >
-                <ChevronRight size={24} className="sm:w-8 sm:h-8" />
-              </button>
-            </div>
-          </div>
-        </section>
+        <FeedbackSlider />
 
         {/* CTA Section */}
         <section className="relative py-16 sm:py-24 md:py-32 overflow-hidden bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900">
@@ -247,7 +167,7 @@ const Professionnel: React.FC = () => {
                 <button className="group relative inline-flex items-center justify-center px-8 sm:px-12 py-3 sm:py-4 text-base sm:text-lg font-bold text-black transition-all duration-300 ease-in-out">
                   <span className="absolute inset-0 w-full h-full transition-all duration-300 ease-in-out transform translate-x-1 translate-y-1 bg-[#c5ff32] group-hover:translate-x-0 group-hover:translate-y-0"></span>
                   <span className="absolute inset-0 w-full h-full border-2 border-[#c5ff32]"></span>
-                  <span className="relative">CONTACTER</span>
+                 <Link to="/contact" className="relative text-black"><span className="relative">CONTACTER</span></Link>
                 </button>
               </div>
               

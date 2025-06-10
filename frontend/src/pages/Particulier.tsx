@@ -1,93 +1,15 @@
 import React from 'react';
 import Header from '../layout/Header';
-import { CheckCircle, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CheckCircle, Star } from 'lucide-react';
 import tablePadel from '../assets/images/tablePadel.png'; 
 import avantageImg from '../assets/images/avantagePadel.png';
-import avatar1 from '../assets/images/avatar1.png';
-import avatar2 from '../assets/images/avatar2.png';
-import avatar3 from '../assets/images/avatar3.png';
 import commandeImg from '../assets/images/tablePadel.png';
 import PartnersSection from '../layout/PartnersSection';
+import FeedbackSlider from '../layout/FeedbackSlider';
+import { Link } from 'react-router-dom';
 
-const feedbacks = [
-  {
-    name: 'Benoit .L',
-    text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-    img: avatar1,
-  },
-  {
-    name: 'Elisa .C',
-    text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-    img: avatar2,
-  },
-  {
-    name: 'Camille .L',
-    text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
-    img: avatar3,
-  },
-];
 
-function FeedbackSlider() {
-  const [start, setStart] = React.useState(0);
-  const visible = 3;
 
-  const prev = () => setStart((s) => (s - 1 + feedbacks.length) % feedbacks.length);
-  const next = () => setStart((s) => (s + 1) % feedbacks.length);
-
-  // For infinite loop, show 3 feedbacks in a row, wrapping around
-  const getFeedbacks = () => {
-    const arr = [];
-    for (let i = 0; i < visible; i++) {
-      arr.push(feedbacks[(start + i) % feedbacks.length]);
-    }
-    return arr;
-  };
-
-  return (
-    <section className="py-20  w-screen relative left-1/2 right-1/2 -mx-[50vw] px-0 flex flex-col justify-center bg-gray-100">
-      <h2 className="text-5xl md:text-7xl font-bold text-center mb-6">Retours clients</h2>
-      <p className="text-3xl text-center mb-12 text-neutral-600 ">Votre satisfaction, notre priorité.</p>
-      <div className="flex items-center justify-center gap-4 max-w-7xl mx-auto mt-20">
-        {/* Left arrow */}
-        <button
-          onClick={prev}
-          className="w-12 h-12 flex items-center justify-center rounded-full bg-black text-white hover:bg-neutral-800 transition"
-          aria-label="Précédent"
-        >
-          <ChevronLeft size={32} />
-        </button>
-        {/* Feedback cards */}
-        <div className="flex gap-8 w-full justify-center">
-          {getFeedbacks().map((fb, idx) => (
-            <div
-              key={idx}
-              className="relative bg-white border border-neutral-400 rounded-2xl px-8 pt-16 pb-8 w-[340px] flex-shrink-0 flex flex-col items-center"
-            >
-              {/* Avatar */}
-              <div className="absolute -top-12 left-1/2 -translate-x-1/2">
-                <img
-                  src={fb.img}
-                  alt={fb.name}
-                  className="w-24 h-24 rounded-full border-4 border-black shadow-lg object-cover"
-                />
-              </div>
-              <div className="mt-4 text-2xl font-bold text-neutral-900">{fb.name}</div>
-              <div className="mt-2 text-base text-neutral-800 text-center">{fb.text}</div>
-            </div>
-          ))}
-        </div>
-        {/* Right arrow */}
-        <button
-          onClick={next}
-          className="w-12 h-12 flex items-center justify-center rounded-full bg-black text-white hover:bg-neutral-800 transition"
-          aria-label="Suivant"
-        >
-          <ChevronRight size={32} />
-        </button>
-      </div>
-    </section>
-  );
-}
 
 const Particulier: React.FC = () => {
   return (
@@ -192,6 +114,7 @@ const Particulier: React.FC = () => {
           </div>
         </section>
 
+        {/* Services Section */}
         <section className="py-12 sm:py-20 min-h-[75vh] flex flex-col justify-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center mb-12 sm:mb-30 px-4">
             Services mis à votre disposition
@@ -226,7 +149,7 @@ const Particulier: React.FC = () => {
 
               {/* Step 3 */}
               <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-blue-400 text-blue-500 text-2xl sm:text-3xl font-bold flex items-center justify-center bg-white shadow-md z-10">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-black text-black-500 text-2xl sm:text-3xl font-bold flex items-center justify-center bg-white shadow-md z-10">
                   3
                 </div>
                 <div className="mt-4 sm:mt-6 text-lg sm:text-xl md:text-2xl font-bold leading-snug">
@@ -273,13 +196,15 @@ const Particulier: React.FC = () => {
                 <p className="text-xl text-gray-300 mb-12 max-w-xl">
                   Découvrez notre table de padel innovante et transformez votre espace de jeu avec un design moderne et performant.
                 </p>
+              <Link to="/contact">  
                 <button className="group relative inline-flex items-center justify-center px-12 py-4 text-lg font-bold text-black transition-all duration-300 ease-in-out">
                   <span className="absolute inset-0 w-full h-full transition-all duration-300 ease-in-out transform translate-x-1 translate-y-1 bg-[#c5ff32] group-hover:translate-x-0 group-hover:translate-y-0"></span>
                   <span className="absolute inset-0 w-full h-full border-2 border-[#c5ff32]"></span>
                   <span className="relative">COMMANDER</span>
                 </button>
+              </Link>
               </div>
-              
+
               {/* Right image */}
               <div className="w-full md:w-1/2">
                 <div className="relative">

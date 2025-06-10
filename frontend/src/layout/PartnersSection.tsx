@@ -99,7 +99,7 @@ const PartnersSection = ({
   };
 
   return (
-    <section className={`py-20 bg-white ${className}`}>
+    <section className={`py-20 ${className}`}>
       <div className="container mx-auto px-6">
         <h2 className="text-center text-3xl font-bold mb-10 text-blue-900">{title}</h2>
 

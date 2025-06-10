@@ -12,6 +12,7 @@ import Professionnel from './pages/Professionnel';
 import Footer from './layout/Footer';
 import Menu from './layout/Menu';
 import { ThemeProvider } from './contexts/ThemeContext';
+import NotFound from './pages/NotFound';
 
 // Admin Pages
 import AdminLogin from './admin/pages/Login';
@@ -58,6 +59,7 @@ const App = () => {
                       <Route path="contact" element={<Contact />} />
                       <Route path="particulier" element={<Particulier />} />
                       <Route path="professionnel" element={<Professionnel />} />
+                      <Route path="*" element={<NotFound />} />
                     </Routes>
                   </PublicLayout>
                 }
