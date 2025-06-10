@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Image, MapPin, Calendar } from 'lucide-react
 import Slider from 'react-slick';
 import PadelCover from "../assets/images/padelCover.jpg"
 import PartnersSection from '../layout/PartnersSection';
+import { Link } from 'react-router-dom';
 
 interface Event {
   id: number;
@@ -306,9 +307,9 @@ const Evenements: React.FC = () => {
             Vivez des événements sportifs inoubliables avec<br />
             Swiss Padel Stars
           </h2>
-          <button className="bg-[#c5ff32] text-black px-8 py-3 rounded-full font-bold hover:bg-opacity-90 transition-colors">
+          <Link to="/contact" className="bg-[#c5ff32] text-black px-8 py-3 rounded-full font-bold hover:bg-opacity-90 transition-colors">
             ORGANISER UN ÉVÉNEMENT
-          </button>
+          </Link>
         </div>
       </section>
 

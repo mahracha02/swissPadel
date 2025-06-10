@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ChevronRight, Menu as MenuIcon, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ChevronRight, Menu as MenuIcon, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo1 from '../assets/images/logoSwissPadel.png';
 import Logo2 from '../assets/images/logo2.png';
@@ -7,8 +7,19 @@ import Logo2 from '../assets/images/logo2.png';
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
   const [isServiceOpen, setIsServiceOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+
+  // Gestion du responsive
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const closeMenu = () => {
     setIsOpen(false);
@@ -18,34 +29,32 @@ export default function Menu() {
   return (
     <>
       {/* Header */}
-      <header className={`flex justify-between items-center px-10 py-6 w-full ${
+      <header className={`flex justify-between items-center px-4 sm:px-10 py-4 sm:py-6 w-full ${
         isHomePage 
-          ? 'fixed bg-transparent text-white z-50' // Home page
-          : 'static bg-transparent text-black' // Normal flow on other pages
+          ? 'fixed bg-transparent text-white z-50' 
+          : 'static bg-transparent text-black'
       }`}>
         <button
           onClick={() => setIsOpen(true)}
-          className={`flex items-center gap-2 text-lg font-medium transition mt-4 ml-4 ${
+          className={`flex items-center gap-2 text-base sm:text-lg font-medium transition mt-2 sm:mt-4 ml-2 sm:ml-4 ${
             isHomePage ? 'hover:text-[#646cff]' : 'hover:text-blue-900'
           }`}
         >
-          <MenuIcon />
-          <span>Menu</span>
+          <MenuIcon size={24} />
+          <span className="hidden sm:inline">Menu</span>
         </button>
 
         <div className="absolute left-1/2 transform -translate-x-1/2">
           <Link to="/">
             {isHomePage ? (
-                <img src={Logo1} alt="Logo" className="h-20 w-30" />
-              ) : (
-                <img src={Logo2} alt="Logo" className="h-20 w-30" />
-
-              ) 
-            }
+              <img src={Logo1} alt="Logo" className="h-16 sm:h-20 w-auto" />
+            ) : (
+              <img src={Logo2} alt="Logo" className="h-16 sm:h-20 w-auto" />
+            )}
           </Link>
         </div>
 
-        <div className={`font-medium text-2xl mt-4 ${isHomePage ? 'text-white' : 'text-black'}`}>FR</div>
+        <div className={`font-medium text-xl sm:text-2xl mt-2 sm:mt-4 ${isHomePage ? 'text-white' : 'text-black'}`}>FR</div>
       </header>
 
       {/* Menu Overlay */}
@@ -58,31 +67,59 @@ export default function Menu() {
         <div className="flex h-full w-full">
           {/* Panel Gauche (menu principal) */}
           <div
-            className={`h-full w-[50%] sm:w-[40%] md:w-[30%] bg-white text-black transform transition-transform duration-500 ease-in-out shadow-lg ${
+            className={`h-full w-full md:w-[30%] bg-white text-black transform transition-transform duration-500 ease-in-out shadow-lg ${
               isOpen ? 'translate-x-0' : '-translate-x-full'
             }`}
           >
-            <div className="flex justify-end p-6">
+            <div className="p-4 sm:p-6">
               <button
                 onClick={closeMenu}
-                className="text-black hover:text-[#646cff] transition"
+                className="text-black hover:text-[#646cff] transition text-lg font-medium mb-6"
               >
-                <X size={28} />
+                Fermer
               </button>
             </div>
 
-            <ul className="px-6 space-y-6 text-lg animate-fadeIn">
+            <ul className="px-4 sm:px-6 space-y-4 sm:space-y-6 text-base sm:text-lg animate-fadeIn">
               <li>
                 <Link to="/" className="block hover:text-[#646cff] transition duration-200" onClick={closeMenu}>
                   Accueil
                 </Link>
               </li>
 
-              <li
-                className="cursor-pointer flex justify-between items-center border border-[#646cff] rounded-lg px-4 py-2 hover:bg-[#f0f0f0] transition duration-200"
-                onClick={() => setIsServiceOpen(!isServiceOpen)}
-              >
-                Nos services <ChevronRight size={20} />
+              {/* Services Section */}
+              <li className="space-y-2">
+                <div
+                  className="cursor-pointer flex justify-between items-center border border-[#646cff] rounded-lg px-4 py-2 hover:bg-[#f0f0f0] transition duration-200"
+                  onClick={() => setIsServiceOpen(!isServiceOpen)}
+                >
+                  <span>Nos services</span>
+                  {isMobile ? (
+                    <ChevronDown size={20} className={`transform transition-transform ${isServiceOpen ? 'rotate-180' : ''}`} />
+                  ) : (
+                    <ChevronRight size={20} />
+                  )}
+                </div>
+                
+                {/* Mobile Dropdown */}
+                {isMobile && isServiceOpen && (
+                  <div className="pl-4 space-y-2 animate-slideDown">
+                    <Link
+                      to="/particulier"
+                      className="block hover:text-[#646cff] transition duration-200"
+                      onClick={closeMenu}
+                    >
+                      Je suis particulier
+                    </Link>
+                    <Link
+                      to="/professionnel"
+                      className="block hover:text-[#646cff] transition duration-200"
+                      onClick={closeMenu}
+                    >
+                      Je suis professionnel
+                    </Link>
+                  </div>
+                )}
               </li>
 
               <li>
@@ -108,23 +145,27 @@ export default function Menu() {
             </ul>
           </div>
 
-          {/* Panel Droite (sous-menu services) */}
-          {isServiceOpen && (
-            <div className="h-full w-[30%] hidden md:flex bg-blue-100/50 backdrop-blur-sm text-black flex-col justify-center items-start p-10 space-y-6 text-lg animate-slideRight shadow-lg rounded-r-2xl">
-              <Link
-                to="/particulier"
-                className="w-full text-left hover:text-white hover:bg-[#646cff] px-4 py-2 rounded transition duration-200"
-                onClick={closeMenu}
-              >
-                Je suis particulier
-              </Link>
-              <Link
-                to="/professionnel"
-                className="w-full text-left hover:text-white hover:bg-[#646cff] px-4 py-2 rounded transition duration-200"
-                onClick={closeMenu}
-              >
-                Je suis professionnel
-              </Link>
+          {/* Panel Droite (sous-menu services) - Desktop only */}
+          {!isMobile && isServiceOpen && (
+            <div 
+              className="h-full w-[30%] bg-sky-100 text-black flex-col justify-center items-start p-10 space-y-6 text-lg animate-slideRight shadow-lg rounded-r-2xl"
+            >
+              <div className="space-y-4">
+                <Link
+                  to="/particulier"
+                  className="w-full text-left hover:text-white hover:bg-[#646cff] px-4 py-2 rounded transition duration-200 block"
+                  onClick={closeMenu}
+                >
+                  Je suis particulier
+                </Link>
+                <Link
+                  to="/professionnel"
+                  className="w-full text-left hover:text-white hover:bg-[#646cff] px-4 py-2 rounded transition duration-200 block"
+                  onClick={closeMenu}
+                >
+                  Je suis professionnel
+                </Link>
+              </div>
             </div>
           )}
         </div>
